@@ -6,3 +6,6 @@ https://www.kaggle.com/datasets/meowmeowmeowmeowmeow/gtsrb-german-traffic-sign
 
 After downloading, extract the dataset into the project root directory as:
 archive (4)/
+
+![alt text](image.png)
+![alt text](image-1.png)
