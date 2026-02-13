@@ -1,1 +1,13 @@
-archive (4)
+# Dataset
+archive (4)/
+dataset/
+data/
+
+# Large files
+*.zip
+*.csv
+*.h5
+
+# Python cache
+__pycache__/
+.ipynb_checkpoints/
