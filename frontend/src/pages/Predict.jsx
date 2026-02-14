@@ -49,15 +49,29 @@ function Predict() {
         {loading ? "Predicting..." : "Predict"}
       </button>
 
-      {result && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Prediction Result</h3>
-          <p><b>Class:</b> {result.label}</p>
-          <p><b>Confidence:</b> {result.confidence}%</p>
-        </div>
-      )}
+      {result?.top_predictions && (
+  <div style={{ marginTop: "30px" }}>
+    <h3>Top-5 Predictions</h3>
+
+    {result.top_predictions.map((item, index) => (
+      <div key={index} style={{ marginBottom: "8px" }}>
+        <span>{item.label}</span>
+        <div
+          style={{
+            height: "10px",
+            width: `${item.confidence}%`,
+            backgroundColor: index === 0 ? "#4CAF50" : "#2196F3",
+            marginTop: "4px"
+          }}
+        ></div>
+        <small>{item.confidence.toFixed(2)}%</small>
+      </div>
+    ))}
+  </div>
+)}
+
     </div>
   );
 }
 
-export default App;
+export default Predict;
