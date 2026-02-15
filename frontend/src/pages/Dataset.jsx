@@ -1,4 +1,5 @@
 import "./Dataset.css";
+import { FaLinkedin } from "react-icons/fa";
 
 const classNames = [
   "Speed limit (20km/h)",
@@ -49,15 +50,67 @@ const classNames = [
 function Dataset() {
   return (
     <div className="dataset-page">
+
+      {/* ================= DEVELOPERS ================= */}
+      <section className="developers-section">
+        <h1 className="dataset-title">👨‍💻 Meet The Developers</h1>
+
+        <div className="developers-grid">
+
+          {/* DEV 1 */}
+          <div className="developer-card">
+            <img src="/arnav.png" alt="Arnav Anand" className="developer-image" />
+            <h3 className="developer-name">Arnav Anand</h3>
+            <a
+              href="https://www.linkedin.com/in/arnav-anand-056710315/"
+              target="_blank"
+              rel="noreferrer"
+              className="linkedin-link"
+            >
+              <FaLinkedin />
+            </a>
+          </div>
+
+          {/* DEV 2 */}
+          <div className="developer-card">
+            <img src="/ansh.png" alt="Ansh Mathur" className="developer-image" />
+            <h3 className="developer-name">Ansh Mathur</h3>
+            <a
+              href="https://www.linkedin.com/in/ansh-mathur-b09ba5337/"
+              target="_blank"
+              rel="noreferrer"
+              className="linkedin-link"
+            >
+              <FaLinkedin />
+            </a>
+          </div>
+
+          {/* DEV 3 */}
+          <div className="developer-card">
+            <img src="/himesh.png" alt="Himesh Sahoo" className="developer-image" />
+            <h3 className="developer-name">Himesh Sahoo</h3>
+            <a
+              href="https://www.linkedin.com/in/himesh-sahoo-1234abcd/"
+              target="_blank"
+              rel="noreferrer"
+              className="linkedin-link"
+            >
+              <FaLinkedin />
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= DATASET INFO ================= */}
       <h1 className="dataset-title">📊 Dataset & Model Information</h1>
 
-      {/* DATASET INFO */}
       <section className="dataset-section dataset-info-card">
         <h2 className="section-heading">Dataset Overview</h2>
 
         <p className="dataset-text">
           This project uses the <b>German Traffic Sign Recognition Benchmark (GTSRB)</b>,
-          a real-world dataset widely adopted for autonomous driving research.
+          a real-world dataset widely adopted in autonomous driving research.
         </p>
 
         <a
@@ -69,24 +122,24 @@ function Dataset() {
           👉 Kaggle Dataset Link
         </a>
 
-        {/* DATASET FEATURES */}
+        {/* FEATURES */}
         <div className="dataset-subcard">
           <h3 className="sub-heading">Dataset Features</h3>
           <ul className="feature-list">
             <li>43 traffic sign classes</li>
             <li>50,000+ labeled images</li>
             <li>RGB images resized to 64 × 64</li>
-            <li>Real-world driving conditions</li>
+            <li>Real-world road conditions</li>
             <li>Lighting & viewpoint variations</li>
           </ul>
         </div>
 
-        {/* CLASSIFICATION REPORT */}
+        {/* REPORT */}
         <div className="dataset-subcard">
           <h3 className="sub-heading">Classification Report</h3>
           <p className="dataset-text subtle">
-            Precision, Recall and F1-score for all 43 classes, showing consistent
-            high performance across the dataset.
+            Precision, Recall and F1-score for all 43 classes,
+            showing strong and consistent model performance.
           </p>
 
           <img
@@ -97,7 +150,7 @@ function Dataset() {
         </div>
       </section>
 
-      {/* CLASS LIST */}
+      {/* ================= CLASS LIST ================= */}
       <section className="dataset-section">
         <h2 className="section-heading">Traffic Sign Classes</h2>
 
@@ -111,7 +164,7 @@ function Dataset() {
         </div>
       </section>
 
-      {/* TRAINING CURVES */}
+      {/* ================= TRAINING CURVES ================= */}
       <section className="dataset-section curves-section">
         <h2 className="curves-heading">Training Curves</h2>
 
@@ -130,7 +183,7 @@ function Dataset() {
         </div>
       </section>
 
-      {/* CONFUSION MATRIX */}
+      {/* ================= CONFUSION MATRIX ================= */}
       <section className="dataset-section confusion-section">
         <h2 className="curves-heading">Confusion Matrix</h2>
 

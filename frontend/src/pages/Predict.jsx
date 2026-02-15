@@ -11,20 +11,24 @@ function Predict() {
   const handleUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+
     setImage(file);
     setPreview(URL.createObjectURL(file));
     setResult(null);
   };
 
   const handlePredict = async () => {
-    if (!image) return alert("Please upload an image first");
+    if (!image) {
+      alert("Please upload a road sign image first");
+      return;
+    }
 
     setLoading(true);
     try {
       const res = await predictImage(image);
       setResult(res);
-    } catch (err) {
-      alert("Prediction failed");
+    } catch (error) {
+      alert("Prediction failed. Please try again.");
     }
     setLoading(false);
   };
@@ -33,12 +37,9 @@ function Predict() {
 
   return (
     <div className="predict-page">
-      {/* ===== TITLE ===== */}
       <h1 className="predict-title">🚦 Road Sign Recognition</h1>
 
-      {/* ===== UPLOAD CARD ===== */}
       <div className="upload-card">
-        {/* Hidden File Input */}
         <input
           type="file"
           accept="image/*"
@@ -47,7 +48,6 @@ function Predict() {
           className="hidden-file-input"
         />
 
-        {/* ACTION BUTTONS */}
         <div className="action-buttons">
           <label htmlFor="fileUpload" className="upload-button">
             📁 Upload Road Sign Image
@@ -62,22 +62,21 @@ function Predict() {
           </button>
         </div>
 
-        {/* FILE NAME */}
         {image && (
           <p className="file-name">
             Selected File: <span>{image.name}</span>
           </p>
         )}
 
-        {/* IMAGE PREVIEW */}
+        {/* ===== IMAGE PREVIEW ===== */}
         {preview && (
           <div className="preview-box">
-            <img src={preview} alt="preview" className="preview-image" />
+            <img src={preview} alt="Uploaded preview" className="preview-image" />
           </div>
         )}
       </div>
 
-      {/* ===== MAIN RESULT ===== */}
+      {/* ================= MAIN RESULT ================= */}
       {mainPrediction && (
         <div className="main-result-card">
           <h2 className="main-result-title">🧠 Prediction Result</h2>
@@ -92,7 +91,7 @@ function Predict() {
         </div>
       )}
 
-      {/* ===== TOP PREDICTIONS ===== */}
+      {/* ================= TOP PREDICTIONS ================= */}
       {result?.top_predictions && (
         <div className="results-card">
           <h3 className="results-title">Top Alternative Predictions</h3>
@@ -108,9 +107,7 @@ function Predict() {
 
               <div className="confidence-bar-bg">
                 <div
-                  className={`confidence-bar ${
-                    index === 0 ? "best" : ""
-                  }`}
+                  className={`confidence-bar ${index === 0 ? "best" : ""}`}
                   style={{ width: `${item.confidence}%` }}
                 />
               </div>
