@@ -1,19 +1,121 @@
+/* ===== NAVBAR CONTAINER ===== */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    background-color: #222;
-    color: white;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 40px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(10, 15, 30, 0.95),
+    rgba(5, 7, 15, 0.9)
+  );
+
+  border-bottom: 2px solid rgba(0, 234, 255, 0.25);
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 25px rgba(0, 234, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 234, 255, 0.15);
+}
+
+/* ===== LEFT BRAND ===== */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.traffic-icon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 0 6px rgba(0, 234, 255, 0.7));
+}
+
+.navbar-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+
+  color: #00eaff;
+
+  text-shadow:
+    0 0 10px rgba(0, 234, 255, 0.8),
+    0 0 20px rgba(0, 234, 255, 0.4);
+}
+
+/* ===== NAV LINKS ===== */
+.navbar-links {
+  display: flex;
+  gap: 25px;
+}
+
+/* Individual link */
+.nav-link {
+  position: relative;
+
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+
+  color: #cfd8dc;
+  text-decoration: none;
+
+  padding: 8px 14px;
+  border-radius: 6px;
+
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.nav-link:hover {
+  color: #00eaff;
+  background: rgba(0, 234, 255, 0.12);
+
+  box-shadow:
+    0 0 15px rgba(0, 234, 255, 0.45),
+    inset 0 0 10px rgba(0, 234, 255, 0.2);
+}
+
+/* Active link (current page) */
+.nav-link.active {
+  color: #0b0f1a;
+  background: linear-gradient(
+    135deg,
+    #00eaff,
+    #64ffda
+  );
+
+  box-shadow:
+    0 0 20px rgba(0, 234, 255, 0.8),
+    0 0 40px rgba(100, 255, 218, 0.6);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px;
   }
-  
-  .navbar a {
-    color: white;
-    margin-left: 20px;
-    text-decoration: none;
-    font-weight: bold;
+
+  .navbar-title {
+    font-size: 1.2rem;
   }
-  
-  .navbar a:hover {
-    text-decoration: underline;
+
+  .navbar-links {
+    gap: 12px;
   }
-  
+
+  .nav-link {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
