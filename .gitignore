@@ -1,17 +1,34 @@
-# Dataset
+# ================= DATASETS =================
 archive (4)/
 dataset/
 data/
 
-# Large files
+# ================= LARGE FILES =================
 *.zip
 *.csv
 *.h5
+*.keras
+*.pth
+*.onnx
 
-# Python cache
+# ================= PYTHON =================
 __pycache__/
 .ipynb_checkpoints/
+*.pyc
 
+# ================= VIRTUAL ENV =================
 venv/
 
+# ================= ENV FILES =================
 .env
+
+# ================= FRONTEND =================
+node_modules/
+build/
+dist/
+
+# ================= OS FILES =================
+.DS_Store
+
+# ================= LOGS =================
+*.log

@@ -6,15 +6,14 @@ import numpy as np
 import cv2
 import os
 
-# Load environment variables
+# ================= LOAD ENV =================
 load_dotenv()
 
 app = Flask(__name__)
 
-# Read frontend URL from environment (prod)
+# ================= CORS CONFIG =================
 PROD_FRONTEND = os.getenv("FRONTEND_URL")
 
-# Allow dev + prod safely
 ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:3001",
@@ -23,20 +22,24 @@ ALLOWED_ORIGINS = [
 if PROD_FRONTEND:
     ALLOWED_ORIGINS.append(PROD_FRONTEND)
 
-# CORS configuration
 CORS(
     app,
     resources={
         r"/predict": {
-            "origins": ALLOWED_ORIGINS
+            "origins": ALLOWED_ORIGINS,
+            "methods": ["POST", "OPTIONS"],
+            "allow_headers": ["Content-Type"],
         }
-    }
+    },
+    supports_credentials=True
 )
 
-# Load model
-model = tf.keras.models.load_model("road_sign_model.keras")
+# ================= LOAD MODEL =================
+MODEL_PATH = os.getenv("MODEL_PATH", "road_sign_model.keras")
+model = tf.keras.models.load_model(MODEL_PATH)
 IMG_SIZE = 64
 
+# ================= CLASS LABELS =================
 class_names = {
     0: "Speed limit (20km/h)",
     1: "Speed limit (30km/h)",
@@ -83,14 +86,14 @@ class_names = {
     42: "End of no passing by vehicles over 3.5 tons"
 }
 
+# ================= ROUTES =================
 @app.route("/")
 def home():
-    return "🚦 Welcome to the Road Sign Recognition API"
+    return "🚦 Road Sign Recognition API is running"
 
 @app.route("/predict", methods=["POST", "OPTIONS"])
 def predict():
 
-    # Handle preflight request
     if request.method == "OPTIONS":
         return jsonify({}), 200
 
@@ -112,13 +115,14 @@ def predict():
     prediction = model.predict(img)[0]
     top_indices = np.argsort(prediction)[-5:][::-1]
 
-    top_predictions = []
-    for idx in top_indices:
-        top_predictions.append({
+    top_predictions = [
+        {
             "class_id": int(idx),
             "label": class_names[idx],
-            "confidence": round(float(prediction[idx] * 100), 2)
-        })
+            "confidence": round(float(prediction[idx] * 100), 2),
+        }
+        for idx in top_indices
+    ]
 
     return jsonify({
         "label": top_predictions[0]["label"],
@@ -127,5 +131,6 @@ def predict():
     })
 
 
+# ================= RUN =================
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
