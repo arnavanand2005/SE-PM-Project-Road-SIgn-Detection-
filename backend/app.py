@@ -1,18 +1,41 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from dotenv import load_dotenv
 import tensorflow as tf
 import numpy as np
 import cv2
+import os
 
-app= Flask(__name__)
+# Load environment variables
+load_dotenv()
+
+app = Flask(__name__)
+
+# Read frontend URL from environment (prod)
+PROD_FRONTEND = os.getenv("FRONTEND_URL")
+
+# Allow dev + prod safely
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+]
+
+if PROD_FRONTEND:
+    ALLOWED_ORIGINS.append(PROD_FRONTEND)
+
+# CORS configuration
 CORS(
     app,
-    resources={r"/predict": {"origins": "http://localhost:3000"}},
-    supports_credentials=True
+    resources={
+        r"/predict": {
+            "origins": ALLOWED_ORIGINS
+        }
+    }
 )
 
-model= tf.keras.models.load_model('road_sign_model.keras')
-img_size= 64
+# Load model
+model = tf.keras.models.load_model("road_sign_model.keras")
+IMG_SIZE = 64
 
 class_names = {
     0: "Speed limit (20km/h)",
@@ -60,41 +83,49 @@ class_names = {
     42: "End of no passing by vehicles over 3.5 tons"
 }
 
-@app.route('/')
+@app.route("/")
 def home():
     return "🚦 Welcome to the Road Sign Recognition API"
 
-@app.route('/predict', methods=['POST','OPTIONS'])
+@app.route("/predict", methods=["POST", "OPTIONS"])
 def predict():
-    if 'image' not in request.files:
-        return jsonify({'error': 'No image file provided'}), 400
-    
-    file = request.files['image']
-    img=np.frombuffer(file.read(), np.uint8)
-    img=cv2.imdecode(img, cv2.IMREAD_COLOR)
+
+    # Handle preflight request
+    if request.method == "OPTIONS":
+        return jsonify({}), 200
+
+    if "image" not in request.files:
+        return jsonify({"error": "No image provided"}), 400
+
+    file = request.files["image"]
+    img = np.frombuffer(file.read(), np.uint8)
+    img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+
+    if img is None:
+        return jsonify({"error": "Invalid image"}), 400
+
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    img=cv2.resize(img, (img_size, img_size))    
-    img=img/255.0
-    img=np.expand_dims(img, axis=0)
+    img = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
+    img = img / 255.0
+    img = np.expand_dims(img, axis=0)
 
-    prediction= model.predict(img)[0]
-    top_indices=np.argsort(prediction)[-5:][::-1]
-    top_predictions=[]
+    prediction = model.predict(img)[0]
+    top_indices = np.argsort(prediction)[-5:][::-1]
 
+    top_predictions = []
     for idx in top_indices:
         top_predictions.append({
-            'class_id': int(idx),
-            'label': class_names[idx],
-            'confidence': float(prediction[idx]*100)
+            "class_id": int(idx),
+            "label": class_names[idx],
+            "confidence": round(float(prediction[idx] * 100), 2)
         })
-    
+
     return jsonify({
-        'label': top_predictions[0]['label'],
-        'confidence': round(top_predictions[0]['confidence'],2),
-        'top_predictions': top_predictions
+        "label": top_predictions[0]["label"],
+        "confidence": top_predictions[0]["confidence"],
+        "top_predictions": top_predictions
     })
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
-
-   
