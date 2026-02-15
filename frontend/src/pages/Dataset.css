@@ -1,0 +1,253 @@
+/* ===== GLOBAL BACKGROUND ===== */
+body {
+    background: radial-gradient(circle at top, #0b1224, #05070f);
+    color: #e4e7eb;
+    font-family: "Segoe UI", system-ui, sans-serif;
+  }
+  
+  /* ===== PAGE ===== */
+  .dataset-page {
+    padding: 40px 60px;
+  }
+  
+  /* ===== TITLE ===== */
+  .dataset-title {
+    font-size: 2.8rem;
+    color: #00eaff;
+    margin-bottom: 30px;
+    text-shadow: 0 0 20px rgba(0, 234, 255, 0.6);
+  }
+  
+  /* ===== SECTIONS ===== */
+  .dataset-section {
+    margin-bottom: 45px;
+  }
+  
+  /* ===== INFO CARD ===== */
+  .dataset-info-card {
+    background: linear-gradient(
+      135deg,
+      rgba(0, 234, 255, 0.08),
+      rgba(100, 255, 218, 0.05)
+    );
+    border: 1px solid rgba(0, 234, 255, 0.3);
+    border-radius: 16px;
+    padding: 25px 30px;
+    box-shadow: 0 0 30px rgba(0, 234, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dataset-info-card::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      rgba(0, 234, 255, 0.15),
+      transparent
+    );
+    animation: infoGlow 6s linear infinite;
+  }
+  
+  @keyframes infoGlow {
+    0% { transform: translate(-100%, -100%); }
+    100% { transform: translate(100%, 100%); }
+  }
+  
+  /* ===== HEADINGS ===== */
+  .section-heading {
+    font-size: 1.6rem;
+    color: #64ffda;
+    border-left: 4px solid #00eaff;
+    padding-left: 12px;
+    margin-bottom: 15px;
+  }
+  
+  .dataset-text {
+    max-width: 800px;
+    line-height: 1.6;
+  }
+  
+  /* ===== LINKS ===== */
+  .dataset-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #00eaff;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .dataset-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* ===== LISTS ===== */
+  .feature-list li,
+  .performance-list li {
+    margin-bottom: 6px;
+  }
+  
+  /* ===== CLASS GRID ===== */
+  .class-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  
+  .class-card {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 234, 255, 0.25);
+    border-radius: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .class-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+  }
+  
+  .class-index {
+    color: #00eaff;
+    font-weight: bold;
+  }
+  
+  .class-name {
+    color: #e4e7eb;
+  }
+  
+  
+  .curve-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;              /* 🔥 KEY FIX */
+    justify-items: center;
+    gap: 100px;
+    margin-top: 20px;
+  }
+  
+  .curve-card {
+    width: 100%;
+    max-width: 520px;
+    height: 420px;                   /* 🔥 LOCK HEIGHT */
+  
+    background: rgba(255, 255, 255, 0.045);
+    border-radius: 18px;
+    border: 1px solid rgba(0, 234, 255, 0.25);
+    backdrop-filter: blur(14px);
+  
+    padding: 18px;
+  
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  
+    transition:
+      transform 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  
+  .curve-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #00eaff;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  
+  .curve-title::after {
+    content: "";
+    display: block;
+    width: 60%;
+    height: 1px;
+    margin: 8px auto 0;
+    background: linear-gradient(to right, transparent, #00eaff, transparent);
+  }
+  
+.curves-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .curve-grid-wrapper {
+    width: 100%;
+    max-width: 1500px;   
+    display: flex;
+    justify-content: center;
+  }
+  
+  .curve-image {
+    width: 100%;
+    max-height: 300px;               /* 🔥 SAME VISUAL SIZE */
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 234, 255, 0.3);
+  }
+  
+  .curve-card:hover {
+    transform: scale(1.05);
+    box-shadow:
+      0 0 28px rgba(0, 234, 255, 0.45),
+      0 0 55px rgba(0, 234, 255, 0.25);
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .curve-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .curve-card {
+      height: auto;
+    }
+  
+    .curve-card:hover {
+      transform: scale(1.03);
+    }
+  }
+
+  /* ===== TRAINING CURVES HEADING ===== */
+.curves-heading {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 35px;
+  
+    color: #64ffda;
+    position: relative;
+    text-align: center;
+  
+    text-shadow:
+      0 0 10px rgba(100, 255, 218, 0.6),
+      0 0 25px rgba(0, 234, 255, 0.35);
+  }
+  
+  .curves-heading::after {
+    content: "";
+    display: block;
+    width: 140px;
+    height: 3px;
+    margin: 12px auto 0;
+  
+    background: linear-gradient(
+      to right,
+      transparent,
+      #00eaff,
+      transparent
+    );
+  
+    box-shadow:
+      0 0 10px rgba(0, 234, 255, 0.8);
+  }
+  
+  
