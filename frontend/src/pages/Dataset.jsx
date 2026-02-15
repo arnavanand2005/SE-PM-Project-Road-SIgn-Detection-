@@ -51,13 +51,13 @@ function Dataset() {
     <div className="dataset-page">
       <h1 className="dataset-title">📊 Dataset & Model Information</h1>
 
-      {/* Dataset Info */}
-      <section className="dataset-section">
-        <h2 className="section-heading">Dataset Used</h2>
+      {/* DATASET INFO */}
+      <section className="dataset-section dataset-info-card">
+        <h2 className="section-heading">Dataset Overview</h2>
+
         <p className="dataset-text">
-          This project uses the{" "}
-          <b>German Traffic Sign Recognition Benchmark (GTSRB)</b>, a standard
-          dataset for road sign classification.
+          This project uses the <b>German Traffic Sign Recognition Benchmark (GTSRB)</b>,
+          a real-world dataset widely adopted for autonomous driving research.
         </p>
 
         <a
@@ -68,21 +68,36 @@ function Dataset() {
         >
           👉 Kaggle Dataset Link
         </a>
+
+        {/* DATASET FEATURES */}
+        <div className="dataset-subcard">
+          <h3 className="sub-heading">Dataset Features</h3>
+          <ul className="feature-list">
+            <li>43 traffic sign classes</li>
+            <li>50,000+ labeled images</li>
+            <li>RGB images resized to 64 × 64</li>
+            <li>Real-world driving conditions</li>
+            <li>Lighting & viewpoint variations</li>
+          </ul>
+        </div>
+
+        {/* CLASSIFICATION REPORT */}
+        <div className="dataset-subcard">
+          <h3 className="sub-heading">Classification Report</h3>
+          <p className="dataset-text subtle">
+            Precision, Recall and F1-score for all 43 classes, showing consistent
+            high performance across the dataset.
+          </p>
+
+          <img
+            src="/report.png"
+            alt="Classification Report"
+            className="report-image"
+          />
+        </div>
       </section>
 
-      {/* Features */}
-      <section className="dataset-section">
-        <h2 className="section-heading">Dataset Features</h2>
-        <ul className="feature-list">
-          <li>43 traffic sign classes</li>
-          <li>50,000+ labeled images</li>
-          <li>RGB images resized to 64 × 64</li>
-          <li>Real-world driving conditions</li>
-          <li>Different lighting and angles</li>
-        </ul>
-      </section>
-
-      {/* Class Names */}
+      {/* CLASS LIST */}
       <section className="dataset-section">
         <h2 className="section-heading">Traffic Sign Classes</h2>
 
@@ -96,45 +111,37 @@ function Dataset() {
         </div>
       </section>
 
-      {/* Model Performance */}
-      <section className="dataset-section dataset-info-card">
-        <h2 className="section-heading">Model Performance</h2>
-        <ul className="performance-list">
-          <li><b>Accuracy:</b> 99.5%</li>
-          <li><b>Loss:</b> 0.01</li>
-          <li><b>Precision:</b> ~99%</li>
-          <li><b>Recall:</b> ~99%</li>
-          <li><b>F1 Score:</b> ~99%</li>
-        </ul>
+      {/* TRAINING CURVES */}
+      <section className="dataset-section curves-section">
+        <h2 className="curves-heading">Training Curves</h2>
+
+        <div className="curve-grid-wrapper">
+          <div className="curve-grid">
+            <div className="curve-card">
+              <h4 className="curve-title">Training Accuracy</h4>
+              <img src="/model_accuracy.png" className="curve-image" />
+            </div>
+
+            <div className="curve-card">
+              <h4 className="curve-title">Training Loss</h4>
+              <img src="/ model_loss.png" className="curve-image" />
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Training Curves */}
-      <section className="dataset-section curves-section">
-  <h2 className="curves-heading">Training Curves</h2>
+      {/* CONFUSION MATRIX */}
+      <section className="dataset-section confusion-section">
+        <h2 className="curves-heading">Confusion Matrix</h2>
 
-  <div className="curve-grid-wrapper">
-    <div className="curve-grid">
-      <div className="curve-card left-curve">
-        <h4 className="curve-title">Training Accuracy</h4>
-        <img
-          src="/model_accuracy.png"
-          alt="Accuracy Curve"
-          className="curve-image"
-        />
-      </div>
-
-      <div className="curve-card right-curve">
-        <h4 className="curve-title">Training Loss</h4>
-        <img
-          src="/ model_loss.png"
-          alt="Loss Curve"
-          className="curve-image"
-        />
-      </div>
-    </div>
-  </div>
-</section>
-
+        <div className="confusion-wrapper">
+          <img
+            src="/confusion_matrix.png"
+            alt="Confusion Matrix"
+            className="confusion-image"
+          />
+        </div>
+      </section>
     </div>
   );
 }
